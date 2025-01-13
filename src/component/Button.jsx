@@ -22,7 +22,7 @@ const Button = ({ index, active, onClick, disabled }) => {
 // Parent component
 const Clickable = () => {
   const [activeStates, setActiveStates] = useState([true, false, true, false, true, true, true, true, true, true, true, true]);
-  const [disabledStates, setDisabledStates] = useState([false,false, false, false, false,false, false, false, false, false, false, false]);
+  const [disabledStates, setDisabledStates] = useState([true,true, false, false, false,true, false, false, false, false, false, false]);
 
   const handleClick = (index) => {
     const newStates = [...activeStates];
