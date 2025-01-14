@@ -31,8 +31,9 @@ const Clickable = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="grid grid-cols-12 gap-4">
+    <div className="min-h-screen bg-gray-200 flex flex-col items-center justify-start p-8">
+        <h1 className="text-4xl font-bold text-green-500 mb-8 underline">Book Tickets</h1>
+      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-4 max-w-screen-lg">
         {activeStates.map((active, index) => (
           <Button
             key={index}
