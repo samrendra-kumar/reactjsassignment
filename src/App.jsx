@@ -1,14 +1,18 @@
 import "./App.css";
-import Clickable from "./component/Button";
-function App() {
-  return (
-    <div>
-       <Clickable/>
-    </div>
-     
-     
-  );
-}
+import React from "react";
+import { BookingProvider } from "./store/context";
+import Clickable from "./component/Clickable";
+// import Moviedetail from "./api";
+
+const App=()=>
+  {
+    return(
+      <BookingProvider>
+        <Clickable/>
+      </BookingProvider>
+    )
+  }
+
 
 
 

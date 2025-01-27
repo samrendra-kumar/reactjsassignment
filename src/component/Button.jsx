@@ -1,52 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+import { BookingContext } from '../store/context';
 
-// Child component for Button
-const Button = ({ index, active, onClick, disabled }) => {
+const Button = ({ index, cost }) => {
+  const { state, dispatch } = useContext(BookingContext);
+  const { activeStates, disabledStates } = state;
+
+  const handleClick = () => {
+    dispatch({ type: 'TOGGLE_SEAT', payload: { index, cost } });
+  };
+
   return (
     <button
-      className={`w-16 h-16 font-bold rounded-lg transition-colors duration-200 flex items-center justify-center ${
-        disabled
+      className={`w-12 h-12 font-bold rounded-lg flex items-center justify-center transition-colors duration-200 ${
+        disabledStates[index]
           ? 'bg-gray-400 text-gray-700 cursor-not-allowed'
-          : active
+          : activeStates[index]
           ? 'bg-green-500 text-white'
           : 'bg-white text-black border border-green-500'
       }`}
-      onClick={() => !disabled && onClick(index)} // Prevent click if disabled
-      disabled={disabled} // Native disabled attribute
+      onClick={() => !disabledStates[index] && handleClick()}
+      disabled={disabledStates[index]}
     >
-      {index + 1}
+      {index % 10 + 1} {/* Seat number within the row */}
     </button>
   );
 };
 
-// Parent component
-const Clickable = () => {
-  const [activeStates, setActiveStates] = useState([true, false, true, false, true, true, true, true, true, true, true, true]);
-  const [disabledStates, setDisabledStates] = useState([true,true, false, false, false,true, false, false, false, false, false, false]);
-
-  const handleClick = (index) => {
-    const newStates = [...activeStates];
-    newStates[index] = !newStates[index]; // Toggle active state
-    setActiveStates(newStates);
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-200 flex flex-col items-center justify-start p-8">
-        <h1 className="text-4xl font-bold text-green-500 mb-8 underline">Book Tickets</h1>
-      <div className="grid grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-4 max-w-screen-lg">
-        {activeStates.map((active, index) => (
-          <Button
-            key={index}
-            index={index}
-            active={active}
-            onClick={handleClick}
-            disabled={disabledStates[index]} // Pass disabled state for each button
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-export default Clickable;
-
+export default Button;
